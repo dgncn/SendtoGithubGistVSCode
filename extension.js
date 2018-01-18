@@ -22,7 +22,7 @@ function activate(context) {
         const github = new GitHubApi({
             debug: true
         });
-        
+
         var accessToken = context.globalState.get("token");
         if (accessToken != undefined && accessToken != "") {
             github.authenticate({

@@ -10,6 +10,12 @@
     "categories": [
         "Other"
     ],
+    "keywords": [
+        "git",
+        "github",
+        "github gists",
+        "gist"
+    ],
     "activationEvents": [
         "onCommand:extension.getSelection",
         "onCommand:extension.getPersonelGithubToken",
@@ -55,5 +61,10 @@
     },
     "dependencies": {
         "github": "^13.1.0"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dgncn/SendtoGithubGistVSCode.git"
+    },
+    "homepage": "https://github.com/dgncn/SendtoGithubGistVSCode/blob/master/README.md"
 }
