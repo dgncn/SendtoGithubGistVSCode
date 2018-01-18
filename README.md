@@ -10,5 +10,5 @@ This extension sends your local file to Github Gist profile(or anonymous)
 * You can remove your token with `F8` keyboard shortcut.   
 
 ## Release Notes
-### 0.0.1
+### 1.0.1
 Initial release of Send to Github Gist extension
