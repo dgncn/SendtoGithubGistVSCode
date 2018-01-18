@@ -28,7 +28,6 @@ function activate(context) {
             github.authenticate({
                 type: 'oauth',
                 token: accessToken
-                //5bc6f9502d771bc9af2254cce14baf96675d0035
             });
         }
         else {
