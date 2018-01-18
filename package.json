@@ -1,0 +1,59 @@
+{
+    "name": "vscode-github-gist",
+    "displayName": "Send to Github Gist",
+    "description": "Send file to github gist",
+    "version": "0.0.1",
+    "publisher": "dogan-kasap",
+    "engines": {
+        "vscode": "^1.19.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.getSelection",
+        "onCommand:extension.getPersonelGithubToken",
+        "onCommand:extension.removePersonelGithubToken"
+    ],
+    "main": "./extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.getSelection",
+                "title": "Send to Github Gist"
+            },
+            {
+                "command": "extension.getPersonelGithubToken",
+                "title": "Add Github Personel Access Token"
+            },
+            {
+                "command": "extension.removePersonelGithubToken",
+                "title": "Remove Github Personel Access Token"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "extension.getPersonelGithubToken",
+                "key": "F2"
+            },
+            {
+                "command": "extension.removePersonelGithubToken",
+                "key": "F8"
+            }
+        ]
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "eslint": "^4.6.1",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "github": "^13.1.0"
+    }
+}
