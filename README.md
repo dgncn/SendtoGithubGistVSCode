@@ -13,6 +13,8 @@ This extension sends your local file to Github Gist profile(or anonymous)
 * You can change accessible option on creating new gists. 
 * Open command palette via `CTRL + SHIFT + P` keyboard shortcut then select `Change Github Gist Visibility(Public - Secret)`. You can upload your file as secret gist after this option.
 ## Release Notes
+### 1.0.3
+Github Api changed to octokit/rest.
 ### 1.0.2
 Added accessible options.
 ### 1.0.1

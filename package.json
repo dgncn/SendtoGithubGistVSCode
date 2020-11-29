@@ -2,7 +2,7 @@
     "name": "vscode-github-gist",
     "displayName": "Send to Github Gist",
     "description": "Send file to github gist",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "publisher": "dogan-kasap",
     "engines": {
         "vscode": "^1.19.0"
@@ -24,8 +24,7 @@
     ],
     "main": "./extension",
     "contributes": {
-        "commands": [
-            {
+        "commands": [{
                 "command": "extension.getSelection",
                 "title": "Send to Github Gist"
             },
@@ -42,8 +41,7 @@
                 "title": "Change Github Gist Visibility(Public - Secret)"
             }
         ],
-        "keybindings": [
-            {
+        "keybindings": [{
                 "command": "extension.getPersonelGithubToken",
                 "key": "F2"
             },

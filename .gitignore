@@ -1,3 +1,5 @@
 node_modules
 .vscode-test/
 .vsix
+vscode-github-gist-1.0.2.vsix
+vscode-github-gist-1.0.3.vsix
