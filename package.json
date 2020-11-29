@@ -65,7 +65,7 @@
         "@types/mocha": "^2.2.42"
     },
     "dependencies": {
-        "github": "^13.1.0"
+        "@octokit/rest": "^18.0.9"
     },
     "repository": {
         "type": "git",

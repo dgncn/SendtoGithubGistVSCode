@@ -1,13 +1,12 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
-const GitHubApi = require('github');
+const GitHubApi = require('@octokit/rest');
 const path = require('path');
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
-
-    let sendToGithubGist = vscode.commands.registerCommand('extension.getSelection', function () {
+    let sendToGithubGist = vscode.commands.registerCommand('extension.getSelection', function() {
         let editor = vscode.window.activeTextEditor;
         if (!editor) {
             return;
@@ -19,24 +18,27 @@ function activate(context) {
         else
             selectedText = editor.document.getText(selection);
 
-        const github = new GitHubApi({
-            debug: true
-        });
+        // const github = new GitHubApi({
+        //     debug: true
+        // });
+
+        let octokit = null;
 
 
         var accessToken = context.globalState.get("token");
         var visibility = true;
         if (accessToken != undefined && accessToken != "") {
-            github.authenticate({
-                type: 'oauth',
-                token: accessToken
-            });
+            try {
+                octokit = new GitHubApi.Octokit({
+                    log: console,
+                    auth: accessToken
+                });
+            } catch (err) {}
             visibility = context.globalState.get("visibility");
             if (visibility == undefined) {
                 visibility = true;
             }
-        }
-        else {
+        } else {
             vscode.window.showWarningMessage("If you want add gist to your github account you should get a github personel access token from Github settings page.");
         }
 
@@ -51,7 +53,7 @@ function activate(context) {
             enumerable: true
         });
 
-        var repoPromise = github.gists.create({
+        var repoPromise = octokit.gists.create({
             'files': fileWithContent,
             'description': exactFileName,
             'public': visibility
@@ -64,7 +66,7 @@ function activate(context) {
         });
     });
 
-    let addPersonelGithubToken = vscode.commands.registerCommand('extension.getPersonelGithubToken', function () {
+    let addPersonelGithubToken = vscode.commands.registerCommand('extension.getPersonelGithubToken', function() {
         var inputBoxOptions = {
             'ignoreFocusOut': true,
             'password': true,
@@ -79,26 +81,24 @@ function activate(context) {
             }).catch((error) => {
                 vscode.window.showErrorMessage(error);
             });
-        }
-        else {
+        } else {
             vscode.window.showInformationMessage("Error: Access token could not be added");
         }
 
     });
 
-    let removePersonelGithubToken = vscode.commands.registerCommand('extension.removePersonelGithubToken', function () {
+    let removePersonelGithubToken = vscode.commands.registerCommand('extension.removePersonelGithubToken', function() {
         var tokenInput = context.globalState.get("token");
         if (tokenInput != undefined && tokenInput != "") {
             tokenInput = "";
             context.globalState.update("token", tokenInput);
             vscode.window.showInformationMessage("The access token has removed.");
-        }
-        else {
+        } else {
             vscode.window.showInformationMessage("The access token was not found.");
         }
     });
 
-    let changeGistVisibility = vscode.commands.registerCommand('extension.changeGistVisibility', function () {
+    let changeGistVisibility = vscode.commands.registerCommand('extension.changeGistVisibility', function() {
         var visibilityValue = context.globalState.get("visibility");
         if (visibilityValue == undefined) {
             visibilityValue = true;
@@ -106,15 +106,13 @@ function activate(context) {
         var accessToken = context.globalState.get("token");
         if (accessToken != undefined && accessToken != "") {
             visibilityValue = !visibilityValue;
-        }
-        else {
+        } else {
             visibilityValue = true;
         }
         context.globalState.update("visibility", visibilityValue);
         if (visibilityValue == true) {
             vscode.window.showInformationMessage("Gist accessible has changed to Public.");
-        }
-        else {
+        } else {
             vscode.window.showInformationMessage("Gist accessible has changed to Secret.");
         }
     });
@@ -127,6 +125,5 @@ function activate(context) {
 exports.activate = activate;
 
 // this method is called when your extension is deactivated
-function deactivate() {
-}
+function deactivate() {}
 exports.deactivate = deactivate;
